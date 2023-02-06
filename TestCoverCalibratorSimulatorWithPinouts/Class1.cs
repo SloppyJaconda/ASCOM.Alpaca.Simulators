@@ -19,6 +19,7 @@ using Iot.Device.Gpio.Drivers;
 using Iot.Device.Rtc;
 using Iot.Device.ServoMotor;
 using Iot.Device.Tlc1543;
+using UnitsNet;
 using Timer = System.Timers.Timer;
 
 namespace TestCoverCalibratorSimulatorWithPinouts
@@ -81,9 +82,16 @@ namespace TestCoverCalibratorSimulatorWithPinouts
         private double stepDegree { get; } = 1.8;
         private double stepsPerRevolution
         {
-            get { return 360 / stepDegree; } 
+            get { return 360 / stepDegree; }
         }
-        private int speed { get; set; } = 200;
+        private int speed { get; } = 255;
+        private double pulseDelay
+        {
+            get
+            {
+                return (MaxBrightness - Brightness) / 100;
+            }
+        }
         private long someMagicNumber = 60 * 1000 * 1000;
         private long getWaitTime()
         {
@@ -235,10 +243,10 @@ namespace TestCoverCalibratorSimulatorWithPinouts
             bool clockwise = numSteps > 0;
             numSteps = Math.Abs(numSteps);
             var start = DateTime.Now;
-            while(numSteps > 0)
+            while (numSteps >= 0)
             {
                 var current = DateTime.Now - start;
-                if(current.TotalMilliseconds < getWaitTime())
+                if (current.TotalMilliseconds < getWaitTime())
                 {
                     Thread.Sleep(1);
                 }
@@ -435,7 +443,7 @@ namespace TestCoverCalibratorSimulatorWithPinouts
         {
             ToggleLED();
 
-            Spin(200);
+            Spin(100);
 
 
             if (coverState == CoverStatus.NotPresent) throw new MethodNotImplementedException("This device has no cover capability.");
@@ -463,7 +471,7 @@ namespace TestCoverCalibratorSimulatorWithPinouts
         public void CloseCover()
         {
             ToggleLED();
-            Spin(-200);
+            Spin(-100);
             
             if (coverState == CoverStatus.NotPresent) throw new MethodNotImplementedException("This device has no cover capability.");
 
