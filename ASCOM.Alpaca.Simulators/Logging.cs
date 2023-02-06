@@ -32,6 +32,11 @@ namespace ASCOM.Alpaca.Simulators
             Logging.Log.LogVerbose($"Transaction: {transactionID} - {remoteIpAddress} ({clientID}, {clientTransactionID}) requested {request}");
         }
 
+        internal static void LogAPI(string requestMethod, string requestName)
+        {
+            Logging.Log.LogInformation($"{requestMethod.ToUpper()} {requestName}; Response:fuck");
+        }
+
         internal static void LogError(string message)
         {
             Logging.Log.LogError(message);

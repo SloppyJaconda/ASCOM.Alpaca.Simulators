@@ -5,6 +5,7 @@ using ASCOM.Tools;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using TestCoverCalibratorSimulatorWithPinouts;
 
 namespace ASCOM.Alpaca.Simulators
 {
@@ -29,7 +30,6 @@ namespace ASCOM.Alpaca.Simulators
 
         // These store the actual instance of the device drivers. They are keyed to the Device Number
         private static readonly Dictionary<int, ICameraV3> cameraV3s = new Dictionary<int, ICameraV3>();
-
         private static readonly Dictionary<int, ICoverCalibratorV1> coverCalibratorV1s = new Dictionary<int, ICoverCalibratorV1>();
         private static readonly Dictionary<int, IDomeV2> domeV2s = new Dictionary<int, IDomeV2>();
         private static readonly Dictionary<int, IFilterWheelV2> filterWheelV2s = new Dictionary<int, IFilterWheelV2>();
@@ -60,7 +60,8 @@ namespace ASCOM.Alpaca.Simulators
             //Only one instance of each in this simulator
             LoadCamera(0);
 
-            LoadCoverCalibrator(0);
+            //LoadCoverCalibrator(0);
+            LoadMyBullshit(0);
 
             LoadDome(0);
 
@@ -93,6 +94,16 @@ namespace ASCOM.Alpaca.Simulators
             coverCalibratorV1s.Remove(DeviceID);
             //Add the new instance
             coverCalibratorV1s.Add(0, new ASCOM.Simulators.CoverCalibratorSimulator(DeviceID, Logging.Log, new XMLProfile(ServerSettings.SettingsFolderName, CoverCalibrator, (uint)DeviceID)));
+        }
+
+        internal static void LoadMyBullshit(int DeviceId)
+        {
+            coverCalibratorV1s.Remove(DeviceId);
+            coverCalibratorV1s.Add(0, new TestCoverCalibratorSimulatorWithPinouts.TestCoverCalibratorSimulatorWithPinouts(
+                DeviceId,
+                Logging.Log,
+                new XMLProfile(ServerSettings.SettingsFolderName, CoverCalibrator, (uint)DeviceId)
+            ));
         }
 
         internal static void LoadDome(int DeviceID)

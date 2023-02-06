@@ -4,6 +4,7 @@
 @inject NavigationManager uriHelper;
 @using System.Timers;
 @using ASCOM.Common.DeviceInterfaces;
+@using TestCoverCalibratorSimulatorWithPinouts;
 
 <body>
     <fieldset>
@@ -62,11 +63,12 @@
     /// <summary>
     /// This access the device type not the interface to allow the device specific settings to be accessed.
     /// </summary>
-    private ASCOM.Simulators.CoverCalibratorSimulator Device
+    private TestCoverCalibratorSimulatorWithPinouts Device
     {
         get
         {
-            return DeviceManager.GetCoverCalibrator((uint)InstanceID) as ASCOM.Simulators.CoverCalibratorSimulator;
+            return DeviceManager.GetCoverCalibrator((uint)InstanceID) as TestCoverCalibratorSimulatorWithPinouts;
+            //return DeviceManager.GetCoverCalibrator((uint)InstanceID) as ASCOM.Simulators.CoverCalibratorSimulator;
         }
     }
 

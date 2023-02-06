@@ -8,6 +8,7 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <Copyright>2021-22 Daniel Van Noord</Copyright>
     <AssemblyName>ascom.alpaca.simulators</AssemblyName>
+    <Platforms>AnyCPU;ARM32</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -51,6 +52,7 @@
     <ProjectReference Include="..\SafetyMonitorSimulator\SafetyMonitorSimulator.csproj" />
     <ProjectReference Include="..\SwitchSimulator\SwitchSimulator.csproj" />
     <ProjectReference Include="..\TelescopeSimulator\TelescopeSimulator.csproj" />
+    <ProjectReference Include="..\TestCoverCalibratorSimulatorWithPinouts\TestCoverCalibratorSimulatorWithPinouts.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
